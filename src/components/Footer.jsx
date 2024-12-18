@@ -13,13 +13,16 @@ const Footer = () => {
             </NavLink>
             <p className="text-muted">Exquisite Silver Jewelry</p>
           </div>
+
           <div className="col-md-4 text-center">
-            <img
-              src="/assets/images/logo (2).png"
-              alt="About Us"
-              height="80px"
-              width="150px"
-            />
+            <NavLink to="/about">
+              <img
+                src="/assets/images/logo (2).png"
+                alt="About Us"
+                height="80px"
+                width="150px"
+              />
+            </NavLink>
           </div>
           <div className="col-md-4 text-center">
             <p className="fw-bold">Follow Us</p>
