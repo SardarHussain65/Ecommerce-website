@@ -17,8 +17,21 @@ const Product = () => {
   });
 
   const cardItem = (item) => (
-    <div className="card my-5 py-4" key={item.id} style={{ width: "18rem" }}>
-      <img src={item.img} className="card-img-top" alt={item.title} />
+    <div
+      className="card my-5 py-4"
+      key={item.id}
+      style={{ width: "16rem", height: "22rem" }}
+    >
+      <img
+        src={item.img}
+        className="card-img-top"
+        alt={item.title}
+        style={{
+          height: "50%",
+          objectFit: "cover",
+        }}
+      />
+
       <div className="card-body text-center">
         <h5 className="card-title">{item.title}</h5>
         <p className="lead">

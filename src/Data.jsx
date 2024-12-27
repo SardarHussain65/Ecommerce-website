@@ -41,6 +41,34 @@ const DATA = [
     desc: "A pure silver ring is a classic piece of jewelry known for its bright, shiny appearance. Made from 99.9% pure silver, it offers elegance and simplicity. Its hypoallergenic nature makes it suitable for everyday wear. With its timeless beauty, a pure silver ring adds a touch of sophistication to any outfit.",
     img: "/assets/images/home/img2.jpg",
   },
+  {
+    id: 6,
+    title: "925 Silver Women's Ring",
+    price: 1150,
+    desc: "A pure silver ring is a classic piece of jewelry known for its bright, shiny appearance. Made from 99.9% pure silver, it offers elegance and simplicity. Its hypoallergenic nature makes it suitable for everyday wear. With its timeless beauty, a pure silver ring adds a touch of sophistication to any outfit.",
+    img: "/assets/images/home/lRing.png",
+  },
+  {
+    id: 7,
+    title: "925 Silver Set",
+    price: 1250,
+    desc: "A pure silver Set is a classic piece of jewelry known for its bright, shiny appearance. Made from 99.9% pure silver, it offers elegance and simplicity. Its hypoallergenic nature makes it suitable for everyday wear. With its timeless beauty, a pure silver Set adds a touch of sophistication to any outfit.",
+    img: "/assets/images/home/set.png",
+  },
+  {
+    id: 8,
+    title: "925 Silver Anklets",
+    price: 1150,
+    desc: "A pure silver Anklets is a classic piece of jewelry known for its bright, shiny appearance. Made from 99.9% pure silver, it offers elegance and simplicity. Its hypoallergenic nature makes it suitable for everyday wear. With its timeless beauty, a pure silver Anklets adds a touch of sophistication to any outfit.",
+    img: "/assets/images/home/ankelet.png",
+  },
+  {
+    id: 9,
+    title: "925 Silver Earring",
+    price: 1250,
+    desc: "A pure silver Earring is a classic piece of jewelry known for its bright, shiny appearance. Made from 99.9% pure silver, it offers elegance and simplicity. Its hypoallergenic nature makes it suitable for everyday wear. With its timeless beauty, a pure silver Earring adds a touch of sophistication to any outfit.",
+    img: "/assets/images/home/earing.png",
+  },
 ];
 
 export default DATA;

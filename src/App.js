@@ -10,6 +10,8 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import AdminSec from "./components/AdminSec";
+import Admin from "./components/buttons/Admin";
 
 function App() {
   return (
@@ -23,6 +25,9 @@ function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
+        <Route path="/" element={<Admin />} />
+        <Route path="/AdminSec" element={<AdminSec />} />
+
         <Redirect to="/" />
       </Switch>
       <Footer />

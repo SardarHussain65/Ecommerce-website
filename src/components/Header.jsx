@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import CartBtn from "./buttons/CartBtn";
+
 import "../index.css";
+import Admin from "./buttons/Admin";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -70,8 +72,9 @@ const Header = () => {
           justifyContent: "center",
           alignItems: "center",
           flexWrap: "wrap",
-          gap: "10px",
+          gap: "4%",
           fontWeight: "bold",
+          marginBottom: "10px",
         }}
       >
         {/* Rings Dropdown */}
@@ -116,6 +119,9 @@ const Header = () => {
         <NavLink className="nav-link" to="/products/category/anklet">
           Anklets
         </NavLink>
+        <div style={{ alignSelf: "center" }}>
+          <Admin />
+        </div>
       </div>
     </>
   );
