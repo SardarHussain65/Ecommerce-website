@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { supabase } from "../App";
+import CardItem from "./cardItem";
 
-import DATA from "../Data";
+export const imageBaseUrl =
+  "https://xduejiadxdhlxveqsfwz.supabase.co/storage/v1/object/public/";
 
 const Product = () => {
-  const { category } = useParams(); // Get category from the route parameter
-  const filteredData = DATA.filter((item) => {
+  const { category } = useParams(); // Get category from URL
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    getItem();
+  }, []);
+
+  const getItem = async () => {
+    try {
+      const { data, error } = await supabase.from("products").select("*");
+      if (error) throw error;
+      setItems(data || []); // Ensure items is always an array
+    } catch (error) {
+      console.error("Error getting items:", error);
+    }
+  };
+
+  // Filter items based on the category
+  const filteredData = items.filter((item) => {
+    const title = item?.name || ""; // Handle undefined titles
     if (category) {
-      return item.title
+      return title
         .toLowerCase()
         .replace(/\s+/g, "-")
         .includes(category.toLowerCase());
@@ -16,47 +36,12 @@ const Product = () => {
     return true;
   });
 
-  const cardItem = (item) => (
-    <div
-      className="card my-5 py-4"
-      key={item.id}
-      style={{ width: "16rem", height: "22rem" }}
-    >
-      <img
-        src={item.img}
-        className="card-img-top"
-        alt={item.title}
-        style={{
-          height: "50%",
-          objectFit: "cover",
-        }}
-      />
-
-      <div className="card-body text-center">
-        <h5 className="card-title">{item.title}</h5>
-        <p className="lead">
-          <span>PKR</span>
-          {item.price}
-        </p>
-        <NavLink
-          to={`/products/${item.id}`}
-          className="btn btn-outline-primary"
-        >
-          Buy Now
-        </NavLink>
-      </div>
-    </div>
-  );
-
   return (
     <div>
       <div className="container py-5">
         <div className="row">
           <div className="col-12 text-center">
-            <h1>
-              {/* {category ? (category + "s").toUpperCase() : "Our Products"} */}
-              Our Products
-            </h1>
+            <h1>Our Products</h1>
             <hr />
           </div>
         </div>
@@ -64,11 +49,18 @@ const Product = () => {
       <div className="container">
         <div className="row justify-content-around">
           {filteredData.length === 0 ? (
-            <p class="text-center text-danger fs-4 fw-bold">
+            <p className="text-center text-danger fs-4 fw-bold">
               No products found for this category.
             </p>
           ) : (
-            filteredData.map(cardItem)
+            filteredData.map((item) => (
+              <CardItem
+                key={item.id}
+                item={item}
+                actionLabel="Buy Now"
+                useCustomImage={false}
+              />
+            ))
           )}
         </div>
       </div>

@@ -3,7 +3,6 @@ import { NavLink, useHistory } from "react-router-dom";
 import CartBtn from "./buttons/CartBtn";
 
 import "../index.css";
-import Admin from "./buttons/Admin";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -106,10 +105,38 @@ const Header = () => {
           </ul>
         </div>
 
+        <div className="nav-item dropdown">
+          <span
+            className="nav-link dropdown-toggle"
+            role="button"
+            aria-expanded="false"
+          >
+            Bracelets
+          </span>
+          <ul className="dropdown-menu show-on-hover">
+            <li>
+              <NavLink
+                className="dropdown-item"
+                to="/products/category/men's-bracelet"
+              >
+                Men's Bracelets
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="dropdown-item"
+                to="/products/category/women's-bracelet"
+              >
+                Women's Bracelets
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+
         {/* Other Links */}
-        <NavLink className="nav-link" to="/products/category/bracelet">
+        {/* <NavLink className="nav-link" to="/products/category/bracelet">
           Bracelets
-        </NavLink>
+        </NavLink> */}
         <NavLink className="nav-link" to="/products/category/set">
           Sets
         </NavLink>
@@ -119,9 +146,9 @@ const Header = () => {
         <NavLink className="nav-link" to="/products/category/anklet">
           Anklets
         </NavLink>
-        <div style={{ alignSelf: "center" }}>
-          <Admin />
-        </div>
+        <NavLink className="nav-link" to="/products/category/chain">
+          Chains
+        </NavLink>
       </div>
     </>
   );

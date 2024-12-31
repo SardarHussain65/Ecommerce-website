@@ -4,19 +4,30 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import About from "./components/About";
 import Product from "./components/Product";
-import Contact from "./components/Contact";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import AdminSec from "./components/AdminSec";
-import Admin from "./components/buttons/Admin";
+import { createClient } from "@supabase/supabase-js";
+import AdminSection from "./Admin";
+import WhatsAppButton from "./components/WhatsAppButton";
+
+const supabaseUrl = "https://xduejiadxdhlxveqsfwz.supabase.co";
+const anonKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkdWVqaWFkeGRobHh2ZXFzZnd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU0OTI2NjgsImV4cCI6MjA1MTA2ODY2OH0.FBCsSDsskHLCezTaM60cr5Gttwo1qvF2B-fdQrLQs6U";
+export const imageBaseUrl =
+  "https://xduejiadxdhlxveqsfwz.supabase.co/storage/v1/object/public/";
+export const supabase = createClient(supabaseUrl, anonKey);
 
 function App() {
+  const location = useLocation();
+
+  const isAdminRoute = location.pathname === "/admin";
+
   return (
     <>
-      <Header />
+      {!isAdminRoute && <Header />}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/products/category/:category" component={Product} />
@@ -24,31 +35,12 @@ function App() {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/contact" component={Contact} />
-        <Route path="/" element={<Admin />} />
-        <Route path="/AdminSec" element={<AdminSec />} />
+        <Route exact path="/admin" component={AdminSection} />
 
         <Redirect to="/" />
       </Switch>
-      <Footer />
-
-      {/* WhatsApp Button */}
-      <div
-        className="fixed-bottom right-100 p-3"
-        style={{ zIndex: 0, left: "initial" }}
-      >
-        <a
-          href="https://wa.me/923369164460?text=Hello%20How%20can%20I%20help%20you%20?"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="/assets/images/home/whatsapp.png"
-            width="60"
-            alt="WhatsApp"
-          />
-        </a>
-      </div>
+      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && <WhatsAppButton />}
     </>
   );
 }
