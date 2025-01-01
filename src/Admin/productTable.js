@@ -9,6 +9,7 @@ const ProductTable = () => {
     price: "",
     description: "",
     image: null,
+    category: "", // Add category field
   });
   const [selectedProduct, setSelectedProduct] = useState(null); // For updating product
 
@@ -47,7 +48,13 @@ const ProductTable = () => {
       if (formData.image) {
         const { data, error } = await supabase.storage
           .from("files")
-          .upload(`images/${formData.image.name}`, formData.image);
+          .upload(
+            `images/${Date.now()}_${formData.image.name}`,
+            formData.image,
+            {
+              upsert: true, // Avoid duplicate uploads
+            }
+          );
         if (error) throw error;
         imageUrl = data.fullPath; // Save this path in the database
       }
@@ -57,6 +64,7 @@ const ProductTable = () => {
         price: parseFloat(formData.price),
         description: formData.description,
         image: imageUrl,
+        category: formData.category, // Include category in payload
       };
 
       if (selectedProduct) {
@@ -75,7 +83,13 @@ const ProductTable = () => {
       }
 
       // Reset form and refresh data
-      setFormData({ name: "", price: "", description: "", image: null });
+      setFormData({
+        name: "",
+        price: "",
+        description: "",
+        image: null,
+        category: "",
+      });
       setShowForm(false);
       setSelectedProduct(null);
       const { data: updatedItems } = await supabase
@@ -83,7 +97,7 @@ const ProductTable = () => {
         .select("*");
       setItems(updatedItems || []);
     } catch (error) {
-      console.error("Error saving item:", error);
+      console.error("Error saving item:", error.message);
       alert("Failed to save item. Please try again.");
     }
   };
@@ -98,7 +112,7 @@ const ProductTable = () => {
       alert("Product deleted successfully!");
       setItems((prevItems) => prevItems.filter((item) => item.id !== id));
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.error("Error deleting product:", error.message);
       alert("Failed to delete product. Please try again.");
     }
   };
@@ -111,6 +125,7 @@ const ProductTable = () => {
       price: product.price,
       description: product.description,
       image: null, // Keep existing image
+      category: product.category, // Populate category field
     });
     setShowForm(true);
   };
@@ -123,7 +138,13 @@ const ProductTable = () => {
           setShowForm(!showForm);
           if (!showForm) {
             setSelectedProduct(null); // Reset selected product when closing the form
-            setFormData({ name: "", price: "", description: "", image: null });
+            setFormData({
+              name: "",
+              price: "",
+              description: "",
+              image: null,
+              category: "",
+            });
           }
         }}
       >
@@ -165,6 +186,27 @@ const ProductTable = () => {
             ></textarea>
           </div>
           <div className="mb-3">
+            <label className="form-label">Category</label>
+            <select
+              name="category"
+              className="form-control"
+              value={formData.category}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select Category</option>
+              <option value="Men's Ring">Men's Ring</option>
+              <option value="Women's Ring">Women's Ring</option>
+              <option value="Men's Bracelet">Men's Bracelet</option>
+              <option value="Women's Bracelet">Women's Bracelet</option>
+              <option value="Set">Set</option>
+              <option value="Earring">Earring</option>
+              <option value="Anklets">Anklets</option>
+              <option value="Chain">Chain</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div className="mb-3">
             <label className="form-label">Product Image</label>
             <input
               type="file"
@@ -188,6 +230,7 @@ const ProductTable = () => {
               <th>Name</th>
               <th>Price</th>
               <th>Description</th>
+              <th>Category</th>
               <th>Image</th>
               <th>Actions</th>
             </tr>
@@ -198,6 +241,7 @@ const ProductTable = () => {
                 <td>{product.name}</td>
                 <td>{product.price}</td>
                 <td>{product.description}</td>
+                <td>{product.category}</td>
                 <td>
                   <img
                     src={
@@ -225,12 +269,6 @@ const ProductTable = () => {
                     onClick={() => handleDelete(product.id)}
                   >
                     Delete
-                  </button>
-                  <button
-                    className="btn btn-primary btn-sm"
-                    onClick={() => alert(JSON.stringify(product, null, 2))}
-                  >
-                    View
                   </button>
                 </td>
               </tr>

@@ -31,6 +31,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/products/category/:category" component={Product} />
+        <Route exact path="/products/search/:search" component={Product} />
+
         <Route exact path="/products/:id" component={ProductDetail} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
