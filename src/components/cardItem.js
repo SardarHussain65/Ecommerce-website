@@ -2,8 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { imageBaseUrl } from "../App";
 
-const CardItem = ({ item, actionLabel, useCustomImage }) => {
+const CardItem = ({ item, actionLabel, useCustomImage, category }) => {
   const imageUrl = useCustomImage ? item.image : `${imageBaseUrl}${item.image}`;
+  console.log("this is the catagory", category);
 
   return (
     <div

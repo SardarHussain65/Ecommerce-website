@@ -156,7 +156,7 @@ const Checkout = () => {
                   </label>
                   <select className="form-select" id="country" required="">
                     <option value="">Choose...</option>
-                    <option>United States</option>
+                    <option>Pakistan</option>
                   </select>
                   <div className="invalid-feedback">
                     Please select a valid country.
@@ -169,7 +169,7 @@ const Checkout = () => {
                   </label>
                   <select className="form-select" id="state" required="">
                     <option value="">Choose...</option>
-                    <option>California</option>
+                    <option>Rawalpindi</option>
                   </select>
                   <div className="invalid-feedback">
                     Please provide a valid state.

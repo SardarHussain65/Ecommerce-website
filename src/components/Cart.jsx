@@ -29,6 +29,11 @@ const Cart = () => {
                 alt={cartItem.title}
                 height="200px"
                 width="180px"
+                objectFit="fill"
+                style={{
+                  objectFit: "cover",
+                  alignSelf: "center",
+                }}
               />
             </div>
             <div className="col-md-4">
