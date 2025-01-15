@@ -49,6 +49,8 @@ const ProductDetail = () => {
     return <p>Loading...</p>;
   }
 
+  console.log("ringSize", ringSize);
+
   return (
     <div className="container">
       <div className="row">
@@ -81,26 +83,28 @@ const ProductDetail = () => {
           <hr />
           <h2 className="my-4">PKR{product.price}</h2>
           <p className="lead">{product.description}</p>
-          <div className="my-3">
-            <label htmlFor="ringSize" className="form-label">
-              Enter Ring Size (6 - 33):
-            </label>
-            <input
-              type="number"
-              id="ringSize"
-              className="form-control"
-              value={ringSize}
-              onChange={handleRingSizeChange}
-              min="6"
-              max="33"
-              style={{ width: "200px", margin: "0 auto" }}
-            />
-            {ringSize && (ringSize < 6 || ringSize > 33) && (
-              <small className="text-danger">
-                Ring size must be between 6 and 33.
-              </small>
-            )}
-          </div>
+          {product.name.toLowerCase().includes("ring") && (
+            <div className="my-3">
+              <label htmlFor="ringSize" className="form-label">
+                Enter Ring Size (6 - 33):
+              </label>
+              <input
+                type="number"
+                id="ringSize"
+                className="form-control"
+                value={ringSize}
+                onChange={handleRingSizeChange}
+                min="6"
+                max="33"
+                style={{ width: "200px", margin: "0 auto" }}
+              />
+              {ringSize && (ringSize < 6 || ringSize > 33) && (
+                <small className="text-danger">
+                  Ring size must be between 6 and 33.
+                </small>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -18,6 +18,8 @@ const Checkout = () => {
     address: false,
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
+
   const total = state.reduce((sum, item) => sum + item.price, 0);
 
   const validateField = (field, value) => {
@@ -33,6 +35,10 @@ const Checkout = () => {
     setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -43,7 +49,13 @@ const Checkout = () => {
     const itemDetails = state
       .map(
         (item) =>
-          `\n- ${item.name}: PKR ${item.price}\nImage: https://xduejiadxdhlxveqsfwz.supabase.co/storage/v1/object/public/${item.image}`
+          `\n- ${item.name}(Ring Size: ${
+            item.ringSize || "Not specified"
+          }): PKR ${
+            item.price
+          }\nImage: https://xduejiadxdhlxveqsfwz.supabase.co/storage/v1/object/public/${
+            item.image
+          }`
       )
       .join("\n");
 
@@ -60,8 +72,8 @@ Total Price: PKR ${total}`;
       message
     )}`;
     window.open(whatsappUrl, "_blank");
+    setIsModalOpen(true); // Show the modal on successful submission
   };
-
   const isFormValid =
     formData.firstName.trim() &&
     formData.lastName.trim() &&
@@ -74,6 +86,9 @@ Total Price: PKR ${total}`;
     >
       <div>
         <h6 className="my-0">{item.name}</h6>
+        <p className="text-muted">
+          Ring Size: {item.ringSize || "Not specified"}
+        </p>
         <img
           src={`https://xduejiadxdhlxveqsfwz.supabase.co/storage/v1/object/public/${item.image}`}
           alt={item.title}
@@ -89,7 +104,6 @@ Total Price: PKR ${total}`;
       <span className="text-muted">PKR {item.price}</span>
     </li>
   );
-
   return (
     <>
       <div className="container my-5">
@@ -212,6 +226,12 @@ Total Price: PKR ${total}`;
 
               <hr className="my-4" />
 
+              <p>
+                Kindly share the details of the items you have selected with us
+                on WhatsApp by Clicking the button below, and we will contact
+                you at the earliest convenience.
+              </p>
+
               <button
                 className="w-100 btn btn-primary btn-lg"
                 type="submit"
@@ -223,6 +243,48 @@ Total Price: PKR ${total}`;
           </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <div
+          className="modal"
+          style={{
+            display: "block",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Success</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={closeModal}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <p class="fs-4 fw-bold">
+                  Thank you for visiting our website, and we wish you the best
+                  of luck!
+                </p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={closeModal}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
