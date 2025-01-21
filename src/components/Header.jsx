@@ -3,6 +3,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import CartBtn from "./buttons/CartBtn";
 
 import "../index.css";
+import Login from "./buttons/Login";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -59,8 +60,10 @@ const Header = () => {
                 Search
               </button>
             </form>
-
-            <CartBtn />
+            <div>
+              <Login />
+              <CartBtn />
+            </div>
           </div>
         </div>
       </nav>
