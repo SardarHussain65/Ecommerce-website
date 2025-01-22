@@ -7,7 +7,7 @@ const WhatsAppButton = () => {
       style={{ zIndex: 0, left: "initial" }}
     >
       <a
-        href="https://wa.me/923369164460?text=Hello%20How%20can%20I%20help%20you%20?"
+        href="https://wa.me/923125713702?text=Hello%20How%20can%20I%20help%20you%20?"
         target="_blank"
         rel="noopener noreferrer"
       >

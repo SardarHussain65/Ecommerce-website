@@ -18,6 +18,27 @@ code {
 .navbar-brand {
   letter-spacing: 3px;
 }
+.navbar .form-control {
+  max-width: 300px;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.bg-light .nav-link {
+  white-space: nowrap;
+}
+
+.bg-light .dropdown-menu {
+  min-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .navbar .form-control {
+    width: 100%;
+  }
+}
 
 /* Card */
 .card {

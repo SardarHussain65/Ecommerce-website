@@ -68,7 +68,7 @@ Items:${itemDetails}
 Total Items: ${state.length}
 Total Price: PKR ${total}`;
 
-    const whatsappUrl = `https://wa.me/923369164460?text=${encodeURIComponent(
+    const whatsappUrl = `https://wa.me/923125713702?text=${encodeURIComponent(
       message
     )}`;
     window.open(whatsappUrl, "_blank");
@@ -94,7 +94,7 @@ Total Price: PKR ${total}`;
           alt={item.title}
           className="mt-3"
           style={{
-            height: "100%",
+            height: "80%",
             width: "50%",
             objectFit: "fill",
             alignSelf: "center",
@@ -228,8 +228,8 @@ Total Price: PKR ${total}`;
 
               <p>
                 Kindly share the details of the items you have selected with us
-                on WhatsApp by Clicking the button below, and we will contact
-                you at the earliest convenience.
+                on WhatsApp by clicking the button below. We will contact you at
+                the earliest convenience to proceed with the delivery process.
               </p>
 
               <button

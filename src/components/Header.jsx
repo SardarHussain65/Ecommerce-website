@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import CartBtn from "./buttons/CartBtn";
-
 import "../index.css";
 import Login from "./buttons/Login";
 
@@ -21,8 +20,11 @@ const Header = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light ">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid py-2">
+          <NavLink className="navbar-brand fw-bold" to="/">
+            RAHEEL JEWELLER
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -34,33 +36,25 @@ const Header = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div
-            className="collapse navbar-collapse d-flex align-items-center justify-content-between"
-            id="navbarSupportedContent"
-          >
-            <ul className="navbar-nav ">
-              <li className="nav-item">
-                <NavLink className="navbar-brand fw-bold" to="/">
-                  RAHEEL JEWELLER
-                </NavLink>
-              </li>
-            </ul>
-
-            {/* Search Form */}
-            <form onSubmit={handleSearch} className="d-flex w-50">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <form
+              onSubmit={handleSearch}
+              className="d-flex flex-grow-1 align-items-center justify-content-center justify-content-lg-end mx-lg-4 my-2 my-lg-0"
+            >
               <input
-                className="form-control me-2 flex w-75"
+                className="form-control me-2 w-50" // Makes input 50% of parent width
                 type="search"
                 placeholder="Search Product"
                 aria-label="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
+
               <button className="btn btn-outline-success" type="submit">
                 Search
               </button>
             </form>
-            <div>
+            <div className="d-flex align-items-center mt-3 mt-lg-0">
               <Login />
               <CartBtn />
             </div>
@@ -68,30 +62,17 @@ const Header = () => {
         </div>
       </nav>
 
-      {/* Navigation Links */}
-      <div
-        className="bg-light"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "4%",
-          fontWeight: "bold",
-          paddingBottom: "10px",
-        }}
-      >
-        {/* Rings Dropdown */}
+      <div className="bg-light d-flex flex-wrap justify-content-center align-items-center gap-5 py-2 px-2 px-md-4">
         <div className="nav-item dropdown">
           <span
-            className="nav-link dropdown-toggle"
+            className="nav-link dropdown-toggle fw-bold"
             role="button"
+            data-bs-toggle="dropdown"
             aria-expanded="false"
           >
             Rings
           </span>
-          <ul className="dropdown-menu show-on-hover">
+          <ul className="dropdown-menu">
             <li>
               <NavLink
                 className="dropdown-item"
@@ -113,13 +94,14 @@ const Header = () => {
 
         <div className="nav-item dropdown">
           <span
-            className="nav-link dropdown-toggle"
+            className="nav-link dropdown-toggle fw-bold"
             role="button"
+            data-bs-toggle="dropdown"
             aria-expanded="false"
           >
             Bracelets
           </span>
-          <ul className="dropdown-menu show-on-hover">
+          <ul className="dropdown-menu">
             <li>
               <NavLink
                 className="dropdown-item"
@@ -139,20 +121,16 @@ const Header = () => {
           </ul>
         </div>
 
-        {/* Other Links */}
-        {/* <NavLink className="nav-link" to="/products/category/bracelet">
-          Bracelets
-        </NavLink> */}
-        <NavLink className="nav-link" to="/products/category/set">
+        <NavLink className="nav-link fw-bold" to="/products/category/set">
           Sets
         </NavLink>
-        <NavLink className="nav-link" to="/products/category/earring">
+        <NavLink className="nav-link fw-bold" to="/products/category/earring">
           Earrings
         </NavLink>
-        <NavLink className="nav-link" to="/products/category/anklet">
+        <NavLink className="nav-link fw-bold" to="/products/category/anklet">
           Anklets
         </NavLink>
-        <NavLink className="nav-link" to="/products/category/chain">
+        <NavLink className="nav-link fw-bold" to="/products/category/chain">
           Chains
         </NavLink>
       </div>
