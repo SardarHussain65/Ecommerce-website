@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ProductTable from "./productTable";
+import { useHistory } from "react-router-dom";
 
 function AdminSection() {
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      window.location.href = "http://localhost:3000"; // Redirect if no token
+      history.push("/Home"); // Navigate to Admin page
     } else {
       setLoading(false); // Stop loading if token exists
     }

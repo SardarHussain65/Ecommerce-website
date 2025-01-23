@@ -1,33 +1,45 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { supabase } from "../../App";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // State for error message
+  const [error, setError] = useState("");
+  const history = useHistory();
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent default form submission
-    supabase.auth
-      .signInWithPassword({ email, password })
-      .then((response) => {
-        if (response?.error?.message) {
-          // console.log(response);
-          setError(response.error.message);
-        } else {
-          console.log(response.data.session.access_token);
-          const token = response.data.session.access_token;
-          localStorage.setItem("token", token);
-          window.location.href = "http://localhost:3000/admin"; // Redirect to admin page
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-          // new Toast("Login succesfully");
+    try {
+      const response = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (response?.error) {
+        setError(response.error.message);
+      } else {
+        const token = response.data.session.access_token;
+        localStorage.setItem("token", token);
+
+        // **Close the modal by simulating a button click**
+        const closeButton = document.querySelector("#loginModal .btn-close");
+        if (closeButton) {
+          closeButton.click();
         }
-      })
-      .catch(console.log(error));
+
+        history.push("/Admin"); // Navigate to Admin page
+      }
+    } catch (err) {
+      console.error(err);
+      setError("An unexpected error occurred. Please try again.");
+    }
   };
 
   return (
     <>
+      {/* Login Button */}
       <button
         type="button"
         className="btn btn-outline-primary ms-auto"
@@ -37,6 +49,7 @@ const Login = () => {
         <span className="fa fa-sign-in me-1"></span> Login
       </button>
 
+      {/* Login Modal */}
       <div
         className="modal fade"
         id="loginModal"
@@ -58,7 +71,6 @@ const Login = () => {
               ></button>
             </div>
             <div className="modal-body">
-              {/* Show error if exists */}
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
@@ -68,11 +80,13 @@ const Login = () => {
                     type="email"
                     className="form-control"
                     id="email"
+                    placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
+
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">
                     Password
@@ -81,11 +95,13 @@ const Login = () => {
                     type="password"
                     className="form-control"
                     id="password"
+                    placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
+
                 {error && <div className="alert alert-danger">{error}</div>}
 
                 <button

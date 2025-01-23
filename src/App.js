@@ -23,7 +23,7 @@ export const supabase = createClient(supabaseUrl, anonKey);
 function App() {
   const location = useLocation();
 
-  const isAdminRoute = location.pathname === "/admin";
+  const isAdminRoute = location.pathname === "/Admin";
 
   return (
     <>
